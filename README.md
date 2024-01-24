@@ -8,7 +8,7 @@ Estas instruções irão ajudá-lo a obter uma cópia do projeto em sua máquina
 
 O que você precisa instalar na sua máquina local.
 
-- Node.js (v20.3)
+- Node.js (v20.11)
 - Docker
 
 ### Instalação
@@ -17,10 +17,10 @@ Como configurar o ambiente de desenvolvimento.
 
 ```bash
 # Clone o repositório
-git clone https://github.com/souzantero/fiap-tech-challenge.git
+git clone https://github.com/souzantero/fiap-tech-challenge-product.git
 
 # Acesse o diretório
-cd fiap-tech-challenge/
+cd fiap-tech-challenge-product/
 
 # Instale as dependências
 npm install
@@ -33,7 +33,7 @@ Como iniciar o servidor em modo de desenvolvimento.
 Crie um arquivo `.env` na raiz do diretório e cole o seguinte conteúdo.
 
 ```
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/fiap_tech_challenge_db
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/fiap_tech_challenge_product_db
 ```
 
 Execute o serviço Docker Compose para iniciar o PostgreSQL.
@@ -68,36 +68,6 @@ Execute o serviço Docker Compose para iniciar o servidor Node.js.
 ```bash
 docker-compose up -d server
 ```
-
-## Como executar o ecossistema utilizando o Kubernetes em um cluster local
-
-### Preparação
-
-Antes de prosseguir, certifique-se de estar na raiz do projeto.
-
-### Iniciar o Banco de Dados
-
-Para iniciar o banco de dados, execute os seguintes comandos:
-
-```bash
-kubectl apply -f ./kubernetes/database/config-map.yaml
-kubectl apply -f ./kubernetes/database/secret.yaml
-kubectl apply -f ./kubernetes/database/persistent-volume.yaml
-kubectl apply -f ./kubernetes/database/pod.yaml
-kubectl apply -f ./kubernetes/database/service.yaml
-```
-
-### Iniciar o Servidor
-
-Agora, para iniciar o servidor, execute:
-
-```bash
-kubectl apply -f ./kubernetes/server/config-map.yaml
-kubectl apply -f ./kubernetes/server/deployment.yaml
-kubectl apply -f ./kubernetes/server/service-node-port.yaml
-```
-
-Este arquivo contém as instruções para configurar e executar o ecossistema utilizando o Kubernetes. Certifique-se de seguir todos os passos cuidadosamente.
 
 ## Open API
 

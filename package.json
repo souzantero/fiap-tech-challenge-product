@@ -8,19 +8,14 @@
     "lint": "eslint '*/**/*.ts'",
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig-build.json",
-    "start": "NODE_ENV=production node --require ./dist/main/observability/instrumentation.js dist/main/server.js",
+    "start": "NODE_ENV=production node dist/main/server.js",
     "start:dev": "NODE_ENV=development nodemon -L --watch ./src --exec ts-node ./src/main/server.ts",
-    "debug": "NODE_ENV=development nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
-    "test:e2e": "NODE_ENV=test ts-node test/e2e/*.test.ts"
+    "debug": "NODE_ENV=development nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js"
   },
   "keywords": [],
   "author": "Antero, Felipe <souzantero@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@opentelemetry/api": "^1.4.1",
-    "@opentelemetry/auto-instrumentations-node": "^0.37.1",
-    "@opentelemetry/sdk-metrics": "^1.15.0",
-    "@opentelemetry/sdk-node": "^0.41.0",
     "@prisma/client": "^4.16.2",
     "express": "^4.18.2",
     "swagger-ui-express": "^4.6.3"
