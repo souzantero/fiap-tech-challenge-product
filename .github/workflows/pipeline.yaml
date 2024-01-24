@@ -1,0 +1,66 @@
+name: FIAP Tech Challenge Server Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Build Docker Image
+        run: docker build -t fiap-tech-challenge-server:latest .
+
+      - name: Login to AWS ECR
+        run: |
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-west-2
+          AWS_ACCOUNT_ID: '074161922676'
+
+      - name: Push Docker Image to ECR
+        run: |
+          docker tag fiap-tech-challenge-server:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:latest
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY_NAME:latest
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-west-2
+          AWS_ACCOUNT_ID: '074161922676'
+          ECR_REPOSITORY_NAME: fiap-tech-challenge-server
+
+      - name: Deploy to EKS
+        run: |
+          aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
+          kubectl create configmap server-config --from-literal=DATABASE_URL="${{ secrets.DATABASE_URL }}"
+          kubectl apply -f ./kubernetes/server/deployment.yaml
+          kubectl apply -f ./kubernetes/server/autoscaler.yaml
+          kubectl apply -f ./kubernetes/server/service-load-balancer.yaml
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-west-2
+          EKS_CLUSTER_NAME: fiap-tech-challenge-eks-lXPi
+
