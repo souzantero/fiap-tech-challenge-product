@@ -105,7 +105,12 @@ export class RemoveOneProductHttpController implements HttpController<void> {
 export class FindManyProductsHttpController {
   constructor(private readonly findProducts: FindProducts) {}
   async handle(request: HttpRequest): Promise<HttpResponse<Product[]>> {
-    const { type } = request.query;
+    const { ids, type } = request.query;
+
+    if (ids) {
+      const products = await this.findProducts.findManyByIds(ids.split(','));
+      return HttpResponse.ok(products);
+    }
 
     if (!type) {
       throw new BadRequestError('Missing required fields');

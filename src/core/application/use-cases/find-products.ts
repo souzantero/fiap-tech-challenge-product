@@ -4,6 +4,10 @@ import { ProductRepository } from '../../domain/repositories/product-repository'
 export class FindProducts {
   constructor(private readonly productRepository: ProductRepository) {}
 
+  findManyByIds(ids: string[]): Promise<Product[]> {
+    return this.productRepository.findManyByIds(ids);
+  }
+
   findManyByType(type: ProductType): Promise<Product[]> {
     return this.productRepository.findManyByType(type);
   }

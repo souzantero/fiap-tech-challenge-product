@@ -22,8 +22,6 @@ export class PrismaDatabase implements Repository {
   }
 
   async drop(): Promise<void> {
-    await Promise.all([
-      this.prisma.product.deleteMany(),
-    ]);
+    await Promise.all([this.prisma.product.deleteMany()]);
   }
 }

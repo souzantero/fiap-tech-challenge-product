@@ -1,4 +1,4 @@
-# FIAP TECH CHALLENGE
+# FIAP TECH CHALLENGE PRODUCT
 
 ## Primeiros Passos
 
@@ -73,7 +73,7 @@ docker-compose up -d server
 
 Para acessar o painel Open API e visualizar os endpoints disponíveis na API. 
 
-`http://localhost:3000/api/docs`
+`http://localhost:{port}/api/docs`
 
 ## Construído com
 
