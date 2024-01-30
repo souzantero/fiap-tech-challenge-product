@@ -10,8 +10,11 @@ export class PrismaDatabaseError extends Error {
 }
 
 export class PrismaDatabase implements Repository {
-  private readonly prisma: PrismaClient = new PrismaClient();
-  public readonly product = new ProductPrismaDatabase(this.prisma);
+  public readonly product;
+
+  constructor(private readonly prisma: PrismaClient = new PrismaClient()) {
+    this.product = new ProductPrismaDatabase(this.prisma);
+  }
 
   connect(): Promise<void> {
     return this.prisma.$connect();
