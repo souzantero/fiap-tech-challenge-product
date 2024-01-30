@@ -13,7 +13,7 @@ import {
   HttpResponse,
 } from './http-controller';
 
-const parsePrice = (price: string): number => {
+export const parsePrice = (price: string): number => {
   const parsedPrice = Number(price);
   if (Number.isNaN(parsedPrice)) {
     throw new BadRequestError('Invalid price');
@@ -22,7 +22,7 @@ const parsePrice = (price: string): number => {
   return parsedPrice;
 };
 
-const parseProductType = (type: string): ProductType => {
+export const parseProductType = (type: string): ProductType => {
   const productType = Object.values(ProductType).find(
     (value) => value === type,
   );

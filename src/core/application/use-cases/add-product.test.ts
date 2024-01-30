@@ -1,4 +1,3 @@
-import { ProductInMemoryDatabase } from '../../../main/databases/in-memory/product-in-memory-database';
 import { ProductType } from '../../domain/entities/product';
 import { AddProduct } from './add-product';
 
@@ -10,7 +9,13 @@ const randomInt = (min = 0, max = 100) =>
 describe('AddProduct', () => {
   it('should add a product', async () => {
     // Arrange
-    const productRepository = new ProductInMemoryDatabase();
+    const productRepository = {
+      createOne: jest.fn().mockImplementation((data) => ({
+        id: randomInt(),
+        ...data,
+      })),
+    } as any;
+
     const addProduct = new AddProduct(productRepository);
     const data = {
       type: ProductType.Drink,
