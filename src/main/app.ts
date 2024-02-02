@@ -28,6 +28,10 @@ export class App {
     return new App(app);
   }
 
+  get express(): express.Express {
+    return this.app;
+  }
+
   start(port: number): Server {
     return this.app.listen(port, () => {
       console.log(`Server is running at http://localhost:${port}`);
