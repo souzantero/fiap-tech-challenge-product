@@ -1,6 +1,13 @@
 service: fiap-tech-challenge-product
 frameworkVersion: '3'
 
+package:
+  patterns:
+    - '!node_modules/.prisma/client/libquery_engine-*'
+    - 'node_modules/.prisma/client/libquery_engine-rhel-*'
+    - '!node_modules/prisma/libquery_engine-*'
+    - '!node_modules/@prisma/engines/**'
+
 provider:
   name: aws
   region: us-west-2
