@@ -1,6 +1,14 @@
 import { App } from './app';
-import { PrismaDatabase } from './databases/prisma/prisma-database';
 import { environment } from './configuration/environment';
+import mongoose from 'mongoose';
+import { Repository } from '../core/domain/repositories/repository';
+import { ProductMongooseDatabase } from './databases/mongoose/product-mongoose-database';
 
-const app = App.create(new PrismaDatabase());
-app.start(environment.port);
+mongoose.connect(environment.databaseUrl).then(() => {
+  const repository: Repository = {
+    product: new ProductMongooseDatabase(),
+  };
+
+  const app = App.create(repository);
+  app.start(environment.port);
+});

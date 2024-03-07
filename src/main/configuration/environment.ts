@@ -3,6 +3,7 @@ export type EnvironmentName = 'development' | 'production';
 export interface Environment {
   readonly name: EnvironmentName;
   readonly port: number;
+  readonly databaseUrl: string;
 }
 
 if (process.env.NODE_ENV) {
@@ -24,4 +25,7 @@ if (process.env.PORT) {
 export const environment: Environment = {
   name: (process.env.NODE_ENV as EnvironmentName) || 'development',
   port: Number(process.env.PORT) || 3000,
+  databaseUrl:
+    process.env.DATABASE_URL ||
+    'mongodb://root:mongopass@localhost:27017/productdb?authSource=admin',
 };

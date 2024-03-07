@@ -130,8 +130,7 @@
             "description": "Identificador único do produto",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           }
         ],
@@ -200,8 +199,7 @@
             "description": "Identificador único do produto",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           }
         ],
@@ -256,7 +254,6 @@
         "properties": {
           "id": {
             "type": "string",
-            "format": "uuid",
             "description": "Identificador único do produto"
           },
           "createdAt": {
