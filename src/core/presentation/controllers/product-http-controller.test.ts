@@ -1,6 +1,6 @@
 import { FindOneProductByIdError } from '../../application/use-cases';
 import { ProductType } from '../../domain/entities/product';
-import { BadRequestError } from './http-controller';
+import { BadRequestError } from '../protocols/http';
 import {
   AddOneProductHttpController,
   FindManyProductsHttpController,

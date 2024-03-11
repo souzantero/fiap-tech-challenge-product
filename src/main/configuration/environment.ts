@@ -4,6 +4,7 @@ export interface Environment {
   readonly name: EnvironmentName;
   readonly port: number;
   readonly databaseUrl: string;
+  readonly authorizationUrl: string;
 }
 
 if (process.env.NODE_ENV) {
@@ -28,4 +29,6 @@ export const environment: Environment = {
   databaseUrl:
     process.env.DATABASE_URL ||
     'mongodb://root:mongopass@localhost:27017/productdb?authSource=admin',
+  authorizationUrl:
+    process.env.AUTHORIZATION_URL ?? 'http://localhost:3004/api',
 };
