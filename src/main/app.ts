@@ -26,6 +26,7 @@ export class App {
 
     app.use('/api', router);
     app.use('/api/docs', swagger.serve, swagger.setup(openapi));
+    app.use((_, res) => res.status(404).json({ message: 'Not Found' }));
 
     return new App(app);
   }
