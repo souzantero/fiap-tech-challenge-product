@@ -1,6 +1,7 @@
 import { Server } from 'node:http';
 import express, { Router } from 'express';
 import swagger from 'swagger-ui-express';
+import helmet from 'helmet';
 
 import openapi from './documentation/openapi.json';
 import { Repository } from '../core/domain/repositories/repository';
@@ -11,6 +12,7 @@ export class App {
 
   static create(repository: Repository) {
     const app = express();
+    app.use(helmet());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     const router = Router();
