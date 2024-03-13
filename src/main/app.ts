@@ -13,6 +13,10 @@ export class App {
   static create(repository: Repository) {
     const app = express();
     app.use(helmet());
+    app.use((_, res, next) => {
+      res.setHeader('Cache-Control', 'no-store');
+      next();
+    });
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     const router = Router();
