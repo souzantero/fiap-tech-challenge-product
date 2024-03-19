@@ -33,23 +33,17 @@ Como iniciar o servidor em modo de desenvolvimento.
 Crie um arquivo `.env` na raiz do diretório e cole o seguinte conteúdo.
 
 ```
-PORT=3000
-DATABASE_URL=mongodb://root:mongopass@localhost:27017/productdb?authSource=admin
-AUTHORIZATION_URL=https://mqo3nhbdv5.execute-api.us-west-2.amazonaws.com #API de Autenticação
+PORT=_PORT_
+DATABASE_URL=_DATABASE_URL_
+AUTHORIZATION_URL=_AUTHORIZATION_URL_
 ```
 
 Obs: Se estiver executando o serviço de autorização localmente altere a URL pelo endereço do localhost
 
-Execute o serviço Docker Compose para iniciar o PostgreSQL.
+Execute o serviço Docker Compose para iniciar o Mongo.
 
 ```bash
 docker-compose up -d database
-```
-
-Crie o banco de dados.
-
-```bash
-npx prisma migrate dev
 ```
 
 Inicie a aplicação.
@@ -63,14 +57,6 @@ Para iniciar em modo de produção.
 ```bash
 npm run build
 npm run start
-```
-
-Como iniciar o servidor com o Docker Compose
-
-Execute o serviço Docker Compose para iniciar o servidor Node.js.
-
-```bash
-docker-compose up -d server
 ```
 
 ## Open API
