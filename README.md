@@ -33,8 +33,12 @@ Como iniciar o servidor em modo de desenvolvimento.
 Crie um arquivo `.env` na raiz do diretório e cole o seguinte conteúdo.
 
 ```
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/fiap_tech_challenge_product_db
+PORT=3000
+DATABASE_URL=mongodb://root:mongopass@localhost:27017/productdb?authSource=admin
+AUTHORIZATION_URL=https://mqo3nhbdv5.execute-api.us-west-2.amazonaws.com #API de Autenticação
 ```
+
+Obs: Se estiver executando o serviço de autorização localmente altere a URL pelo endereço do localhost
 
 Execute o serviço Docker Compose para iniciar o PostgreSQL.
 
