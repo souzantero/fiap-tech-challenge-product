@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { App } from './app';
 import { environment } from './configuration/environment';
 import mongoose from 'mongoose';
